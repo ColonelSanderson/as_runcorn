@@ -20,6 +20,55 @@ Permission.define("approve_agency_registration",
                   :implied_by => "manage_agency_registration",
                   :level => "global")
 
+Permission.define('manage_publication',
+                  'The ability to publish and unpublish records to the public website',
+                  :level => "repository")
+
+Permission.define('update_publish_flag',
+                  'The ability to publish and unpublish records to the public website',
+                  :implied_by => "manage_publication",
+                  :level => "global")
+
+Permission.define('set_raps',
+                  'The ability to set Restricted Access Periods on records',
+                  :level => "repository")
+
+Permission.define('manage_conservation_assessment',
+                  'The ability to create, modify and delete conversion requests and assessments',
+                  :level => "repository")
+
+Permission.define('manage_fee_schedules',
+                  'The ability to create, modify and delete fee schedules',
+                  :level => "repository")
+
+Permission.define('update_charges',
+                  'The ability to create, modify and delete chargeable services and items',
+                  :implied_by => "manage_fee_schedules",
+                  :level => "global")
+
+Permission.define('manage_agency_deletion',
+                  'The ability to manage the deletion of agency records',
+                  :level => "repository")
+
+Permission.define('delete_agency',
+                  'The ability to delete agency records',
+                  :implied_by => "manage_agency_deletion",
+                  :level => "global")
+
+# These permissions are not relevant the QSA, so hide them to avoid confusion
+[
+ "update_accession_record",
+ "update_event_record",
+ "delete_event_record",
+ "suppress_archival_record",
+ "view_suppressed",
+ "update_classification_record",
+ "delete_classification_record",
+].each do |perm|
+  Permission.hide(perm)
+end
+
+
 begin
   History.register_model(ChargeableItem)
   History.register_model(ChargeableService)
@@ -239,5 +288,11 @@ ArchivesSpaceService.plugins_loaded_hook do
     end
 
     params
+  end
+end
+
+ASModel.all_models.each do |model|
+  if model.included_modules.include?(Publishable)
+    model.include(PublicationPolice)
   end
 end

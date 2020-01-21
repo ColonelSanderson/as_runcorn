@@ -25,17 +25,21 @@ class ConservationCSV
     @refs = refs
   end
 
+  def search_by_refs(refs)
+    query = "{!terms f=id}" + refs.join(',')
+
+    results = Search.search({
+                              :q => query,
+                              :page => 1,
+                              :page_size => AppConfig[:max_page_size],
+                            }, RequestContext.get(:repo_id))
+  end
+
   def each_chunk(&block)
     block.call(HEADERS.to_csv)
 
     @refs.each_slice(AppConfig[:max_page_size]) do |slice|
-      query = "{!terms f=id}" + slice.join(',')
-
-      results = Search.search({
-                                :q => query,
-                                :page => 1,
-                                :page_size => AppConfig[:max_page_size],
-                              }, RequestContext.get(:repo_id))
+      results = search_by_refs(slice)
 
       block.call(
         results['results'].map {|result|
@@ -57,7 +61,5 @@ class ConservationCSV
       )
     end
   end
-
-
 
 end

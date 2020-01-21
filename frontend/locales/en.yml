@@ -104,6 +104,13 @@ en:
   group:
     permission_types:
       manage_agency_registration: manage agency registration workflow
+      manage_publication: manage the publication of records to the public website
+      set_raps: set Restricted Access Periods on records
+      manage_conservation_assessment: manage conservation requests and assessments
+      manage_fee_schedules: manage fee schedules
+      manage_agency_deletion: delete agency records
+      update_resource_record: create/update series, item and representation records in this repository
+      approve_records: archivist approve a record
   assessment:
     conservation_note: Condition Rating
     treatment_priority: Treatment Priority
@@ -249,6 +256,7 @@ en:
     title: Title
     deaccessioned: This record has been deaccessioned
     rap_access_status: Access Status
+    archivist_approved: Archivist Approved?
     _plural: Digital Representations
     _singular: Digital Representation
     _frontend:

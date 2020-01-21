@@ -5,7 +5,7 @@ class ArchivesSpaceService < Sinatra::Base
             ["id", :id],
             *ArchivesSpaceService::BASE_SEARCH_PARAMS)
     .paginated(true)
-    .permissions([])
+    .permissions([:view_repository])
     .returns([200, :updated]) \
   do
     # See the corresponding `search` method in conservation_request.rb for an
@@ -20,14 +20,18 @@ class ArchivesSpaceService < Sinatra::Base
 
     params[:q] = query
 
-    json_response(Search.search(params, params[:repo_id]))
+    results = Search.search(params, params[:repo_id])
+
+    Assessment.add_treatment_summaries_to_search_results(assessment.id, results)
+
+    json_response(results)
   end
 
   Endpoint.get('/repositories/:repo_id/assessments/:id/csv')
     .description("Download assessment representations as a CSV document")
     .params(["repo_id", :repo_id],
             ["id", :id])
-    .permissions([])
+    .permissions([:view_repository])
     .returns([200, "(csv)"]) \
   do
     assessment = Assessment.get_or_die(params[:id])
@@ -35,7 +39,7 @@ class ArchivesSpaceService < Sinatra::Base
     [
       200,
       {"Content-Type" => "text/csv"},
-      ConservationCSV.for_refs(assessment.connected_record_refs).to_enum(:each_chunk)
+      AssessmentCSV.for_refs(assessment.id, assessment.connected_record_refs).to_enum(:each_chunk)
     ]
   end
 
@@ -46,7 +50,7 @@ class ArchivesSpaceService < Sinatra::Base
             ["id", :id],
             ["representation_id", [Integer], "Representation QSA IDs"],
             ["conservation_treatment", String, "Conservation Treatment template"])
-    .permissions([])
+    .permissions([:manage_conservation_assessment])
     .returns([200, :updated]) \
   do
     assessment = Assessment.get_or_die(params[:id])
