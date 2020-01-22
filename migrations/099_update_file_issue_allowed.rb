@@ -11,15 +11,15 @@ Sequel.migration do
         add_foreign_key([:file_issue_allowed_id], :enumeration_value, :key => :id, :name => "runcorn_file_issue_allowed_#{table}_fk")
       end
 
+      self["#{table}_representation".intern]
+          .filter(:file_issue_allowed => 1)
+          .update(:file_issue_allowed_id => true_id)
+
+      self["#{table}_representation".intern]
+          .filter(:file_issue_allowed => 0)
+          .update(:file_issue_allowed_id => false_id)
+
       alter_table("#{table}_representation".intern) do
-        @db["#{table}_representation".intern]
-            .filter(:file_issue_allowed => 1)
-            .update(:file_issue_allowed_id => true_id)
-
-        @db["#{table}_representation".intern]
-            .filter(:file_issue_allowed => 0)
-            .update(:file_issue_allowed_id => false_id)
-
         drop_column(:file_issue_allowed)
       end
     end
