@@ -54,7 +54,6 @@ describe 'Runcorn Deaccessions' do
             "description" => "Let us get digital!",
             "file_type" => "JPEG",
             "contained_within" => "Floppy Disk",
-            "normal_location" => "N/A",
           }
         ],
       })
@@ -79,7 +78,6 @@ describe 'Runcorn Deaccessions' do
             "description" => "Let us get digital!",
             "file_type" => "JPEG",
             "contained_within" => "Floppy Disk",
-            "normal_location" => "N/A",
           }
         ],
       })
@@ -116,7 +114,6 @@ describe 'Runcorn Deaccessions' do
             "description" => "Let us get digital!",
             "file_type" => "JPEG",
             "contained_within" => "Floppy Disk",
-            "normal_location" => "N/A",
             "deaccessions" => [
               build(:json_deaccession, {'scope' => 'whole'})
             ],
@@ -150,7 +147,6 @@ describe 'Runcorn Deaccessions' do
             "description" => "Let us get digital!",
             "file_type" => "JPEG",
             "contained_within" => "Floppy Disk",
-            "normal_location" => "N/A",
           }
         ],
       })
@@ -427,7 +423,6 @@ describe 'Runcorn Deaccessions' do
             "description" => "Let us get digital!",
             "file_type" => "JPEG",
             "contained_within" => "Floppy Disk",
-            "normal_location" => "N/A",
             "deaccessions" => [
               build(:json_deaccession, {'scope' => 'whole'})
             ],
@@ -455,7 +450,6 @@ describe 'Runcorn Deaccessions' do
             "description" => "Let us get digital!",
             "file_type" => "JPEG",
             "contained_within" => "Floppy Disk",
-            "normal_location" => "N/A",
             "container" => {"ref" => top_container.uri},
           }
         ]
@@ -490,7 +484,6 @@ describe 'Runcorn Deaccessions' do
             "description" => "Let us get digital!",
             "file_type" => "JPEG",
             "contained_within" => "Floppy Disk",
-            "normal_location" => "N/A",
             "container" => {"ref" => top_container.uri},
           }
         ]

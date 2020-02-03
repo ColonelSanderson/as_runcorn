@@ -28,7 +28,6 @@ FactoryBot.define do
     uri { generate(:url) }
     title { generate(:generic_title) }
     description { generate(:generic_description) }
-    normal_location { generate(:runcorn_location) }
     file_type { generate(:runcorn_file_type) }
     contained_within { generate(:runcorn_digital_representation_contained_within) }
   end

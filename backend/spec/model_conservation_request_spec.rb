@@ -32,7 +32,6 @@ describe 'Runcorn Conservation Requests' do
                "description" => "Let us get digital!",
                "file_type" => "JPEG",
                "contained_within" => "Floppy Disk",
-               "normal_location" => "N/A",
              }
            ])
   }

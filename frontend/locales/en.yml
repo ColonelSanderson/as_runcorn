@@ -231,7 +231,6 @@ en:
 
   digital_representation: &digital_representation
     access_category: Access Status
-    normal_location: Normal Location
     accessioned_status: Accessioned Status
     agency_assigned_id: Agency Control Number
     approval_date: Approved Date
